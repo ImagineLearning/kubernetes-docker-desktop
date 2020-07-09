@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-deployment
+  labels:
+    app: blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blue
+  template:
+    metadata:
+      labels:
+        app: blue
+    spec:
+      containers:
+      - name: blue
+        image: busybox
+        env:
+        - name: podname
+          valueFrom: 
+            fieldRef:
+              fieldPath: metadata.name
+        command:
+        - 'sh'
+        - '-c'
+        - 'echo $podname && sleep 10000'

@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/frontend-entry-points: http
+  name: rainbow-ingress
+spec:
+  rules:
+  - host: custom-local-ingress.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rainbow-svc 
+          servicePort: 80

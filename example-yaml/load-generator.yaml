@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: load-gen
+  labels:
+    app: load
+spec:
+  containers:
+  - name: load-gen
+    image: busybox
+    env:
+    - name: RUN_SCRIPT
+      value: |
+              while :
+              do
+                sleep 0.01
+                wget http://rainbow-svc
+              done
+    command:
+    - 'sh'
+    - '-c'
+    - 'echo "$RUN_SCRIPT" > run.sh && chmod +x ./run.sh && ./run.sh'
+  restartPolicy: Never
